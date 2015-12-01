@@ -1,0 +1,5 @@
+{
+  "GOOGLE_CLIENT_ID": "177444159170-miuapcobcoo98idi94t35je9iiqooakl.apps.googleusercontent.com",
+  "GOOGLE_CLIENT_SECRET": "A2LsVfPccpgKPJJ6SMOTBftK",
+  "GOOGLE_CALLBACK_URL": "http://localhost:3000/auth/google/callback"
+}
