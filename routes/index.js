@@ -39,6 +39,16 @@ router.get("/tests",function(req,res){
     });
 });
 
+router.get("/tests/:id",function(req,res){
+    schema.testModel.findById({_id:req.params.id},function(err,result){
+        if(err) res.result(500).json({message: "something went wrong"});
+        else {
+            res.status(200).json(result);
+            tests=result;
+        }
+    });
+});
+
 
 
 module.exports = router;

@@ -1,0 +1,18 @@
+<section class="tests_list">
+    <h1>{{message}} {{user.displayName}}</h1>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="test in tests">
+            <td>{{test.title}}</td>
+            <td>{{test.author}}</td>
+            <td>{{test.date}}</td>
+            <td><button ui-sref="testDetail({id:test._id})" >Start test{{testId}}</button></td>
+            <td><a ui-sref="testDetail({id:test._id})">test</a></td>
+        </tr>
+    </table>
+</section>

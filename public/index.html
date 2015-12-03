@@ -10,24 +10,8 @@
 
 </head>
 <body>
-    <div ng-controller="mainCtrl">
-        <h1>{{message}} {{user.displayName}}</h1>
-        <table>
-            <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Date</th>
-                <th></th>
-            </tr>
-            <tr ng-repeat="test in tests">
-                <td>{{test.title}}</td>
-                <td>{{test.author}}</td>
-                <td>{{test.date}}</td>
-                <td><button>Start test</button></td>
-            </tr>
-        </table>
 
-    </div>
+    <div ui-view></div>
 
 </body>
 </html>
