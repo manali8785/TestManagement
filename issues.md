@@ -7,6 +7,6 @@
         - url
         - controller
         - templateUrl
-    - Make sure that the controllers are writtend using the app.controller syntax and not directly provided in the
+    - Make sure that the controllers are written using the app.controller syntax and not directly provided in the
       state provider syntax (for reasons of testability)
  - Work with services for Test backend
