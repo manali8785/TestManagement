@@ -11,9 +11,6 @@ var users = require('./routes/users');
 var app = express();
 
 var auth = require("./modules/auth")(app);
-var mongoose=require('mongoose');
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -59,14 +56,6 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
-});
-
-mongoose.connect('mongodb://localhost/questions',function(err){
-    if(err) console.log('there was a error connecting to db');
-    else{
-        console.log('Connected to mongodb!');
-        // createQuestions();
-    }
 });
 
 module.exports = app;

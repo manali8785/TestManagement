@@ -6,10 +6,27 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="app/app.js"></script>
+    <link rel="stylesheet" href="./stylesheets/base.css">
+
 </head>
 <body>
     <div ng-controller="mainCtrl">
         <h1>{{message}} {{user.displayName}}</h1>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="test in tests">
+                <td>{{test.title}}</td>
+                <td>{{test.author}}</td>
+                <td>{{test.date}}</td>
+                <td><button>Start test</button></td>
+            </tr>
+        </table>
+
     </div>
 
 </body>

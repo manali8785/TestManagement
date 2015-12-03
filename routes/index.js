@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var schema=require("../dbschema");
-
+var tests;
 router.use(function(req,res,next){
     if(req.user){
         next();
@@ -28,5 +28,17 @@ router.get("/questions",function(req,res){
        }
    });
 });
+
+router.get("/tests",function(req,res){
+    schema.testModel.find(function(err,result){
+        if(err) res.result(500).json({message: "something went wrong"});
+        else {
+            res.status(200).json(result);
+            tests=result;
+        }
+    });
+});
+
+
 
 module.exports = router;
