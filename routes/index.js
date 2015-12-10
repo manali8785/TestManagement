@@ -19,16 +19,6 @@ router.get("/validate", function(req,res){
   res.status(200).json(req.user);
 });
 
-router.get("/questions",function(req,res){
-   schema.questionModel.find({}, {}, { limit: 2}, function(err,result){
-       if(err) res.result(500).json({message: "something went wrong"});
-       else {
-           result[0].next = result[1]._id;
-           res.status(200).json(result[0]);
-       }
-   });
-});
-
 router.get("/tests",function(req,res){
     schema.testModel.find(function(err,result){
         if(err) res.result(500).json({message: "something went wrong"});
@@ -49,6 +39,16 @@ router.get("/tests/:id",function(req,res){
     });
 });
 
+router.get("/questions",function(req,res){
+    schema.questionModel.findById({_id:req.query.id},function(err,result){
+        if(err) res.result(500).json({message: "something went wrong"});
+        else {
+            console.log(result);
+            res.status(200).json(result);
+
+        }
+    });
+});
 
 
 module.exports = router;

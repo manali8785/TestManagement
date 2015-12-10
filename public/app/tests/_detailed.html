@@ -1,8 +1,19 @@
 <section class="test_details">
-    The test ID is: {{testid}}
+    <!--The test ID is: {{testid}}
 
     <h1>{{test.title}}</h1>
     <h2>{{test.author}}</h2>
     <div>{{test.date}}</div>
-    <a ui-sref="testList">Back to Tests ... </a>
+    <a ui-sref="testList">Back to Tests ... </a>-->
+
+    <h1>Question: {{question.question}}</h1>
+    Choices are:
+    <ul>
+        <li ng-repeat="ch in question.choice">
+          <input type="checkbox">{{ch}}
+        </li>
+    </ul>
+
+    <button ng-click="nextQuestion()">Next Question</button>
+
 </section>

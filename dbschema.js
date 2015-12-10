@@ -24,11 +24,11 @@ mongoose.connect('mongodb://localhost/questions',function(err){
     if(err) console.log('there was a error connecting to db...');
     else{
         console.log('Connected to mongodb!');
-       // createQuestions();
-       // getAllQuestions();
-       // createTests();
+       //  createQuestions();
+        getAllQuestions();
+        createTests();
        // remove();
-        getAllTests();
+       // getAllTests();
     }
 });
 
@@ -80,13 +80,25 @@ function getAllQuestions(){
 
 function createTests(){
     console.log("creating tests...");
+    var test1=new testModel({
+        title:"Test 3",
+        author:"XYZ",
+        date:Date.now(),
+        questions:['aaaaaaaaa','jjjjjjjjj','ppppppppppppp']
+    })
+    var test2=new testModel({
+        title:"Test 3",
+        author:"XYZ",
+        date:Date.now(),
+        questions:['aaaaaaaaa','jjjjjjjjj','ppppppppppppp']
+    })
     var test3=new testModel({
         title:"Test 3",
         author:"XYZ",
         date:Date.now(),
         questions:['aaaaaaaaa','jjjjjjjjj','ppppppppppppp']
     })
-    test3.save(function(err,results) {
+    test1.save(function(err,results) {
         if (err)console.log(err);
         else {
             console.log("test created successfully...");

@@ -15,50 +15,83 @@ app.config(['$stateProvider',function($stateProvider){
     }).state('testDetail', {
         url: '/tests/:id',
         templateUrl: '/app/tests/_detailed.html',
-        // Do not give the controller here, as it will be difficult to test. Define it outside
-        controller: 'TestDetailController'
+        controller: 'TestDetailController'// Do not give the controller here, as it will be difficult to test. Define it outside
     });
+
 
     // you need two states here -- one for the list view and the other for the test detail
     // I will do that now ...
     // Hi .. let me take a look ...
 }]);
 
-app.controller('TestDetailController', function($scope,$stateParams,TestService){
+app.controller('TestDetailController', function($scope,$stateParams,TestService,QuestionService){
     $scope.testid = $stateParams.id; // good coding practice - let your code breathe
    // console.log($scope.testid);
     // first thing, the service is not designed to return a single test, we will
     // pass all the test data to this controller - I know, that is beyond the scope
     // of this controller, but you can change the logic later.
-
-
-    // Very Important - TestService.testList() returns a promise, not data , hence the command
-    // $scope.questions=TestService.testList();
-    // is incorrect.
-
+    // Very Important - TestService.testList() returns a promise, not data
+    var questions;
     var promise = TestService.testList(); // point to remember is that this returns a promise
-
     console.log('promise: ', promise);
     promise.then(function (tests) {
         // tests is an array of tests ...
         // success ful resolve function (the one that you sent list data into)
         // here we loop over all the tests and find the relevant one ...
         console.log('All tests:', tests); // this is working now ...
-        // Any questions at this point?
-        // ? NO i got my mistake
+
         // This is where we search for the data
         var tests_match_id = tests.filter(function (test) {
             return test._id === $scope.testid;
         });
-        if (tests_match_id.length > 0) {
+        if (tests_match_id.length > 0) {// means we have a match
             $scope.test = tests_match_id[0];
+          //  console.log("questions:",$scope.test.questions);
+              questions=$scope.test.questions;
 
-        }// means we have a match
+            var promise=QuestionService.getQuestionDetail(questions[0]);
+             // console.log("promise:",promise);
+              promise.then(function(question){
+                  $scope.question=question;
+
+              })
+
+        }
+
     });
 
+    $scope.nextQuestion=function(){
+        console.log('next question');
+        var q=questions.shift();
+        console.log("question: ",questions[0]);
+        var promise=QuestionService.getQuestionDetail(questions[0]);
+       // console.log("promise:",promise);
+        promise.then(function(question){
+            console.log("q:",question)
+            $scope.question=question;
+        })
+    }
 
-    console.log("Questions:",$scope.questions);
 
+});
+
+app.service('QuestionService',function($http,$q){
+   var QuestionService=this;
+
+    this.getQuestionDetail=function(question_id){
+        console.log("getQuestionDetail function:",question_id);
+        return $q(function (resolve, reject) {
+            $http.get("/questions/", {
+                params:{ id:question_id }})
+                .then(function (config) {
+                   console.log("data:",config.data);
+                    resolve(config.data);
+                },function (config) {
+                    console.log("There was an error!!!")
+                    reject(config);
+            });
+        });
+    }
 });
 
 
@@ -84,7 +117,7 @@ app.controller("TestListController", function($scope, $http,TestService){
 
 app.service('TestService',function($http,$q) {
 
-    var _list_of_tests,questions;
+    var _list_of_tests;
     var TestService = this;
     this.getTests=function (){
 
@@ -101,7 +134,7 @@ app.service('TestService',function($http,$q) {
 
     }
     this.testList = function () {
-        console.log('testList function');
+//        console.log('testList function');
         // this function will be used by the TestDetailController
         // to search for details of a test (questions, author etc, based on the test id)
         // use this function just as you were using getTests.. any questions?
